@@ -1,65 +1,61 @@
-﻿<html>
-<head>
-  <title></title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>天天留言吧，一天一更新！</title>
+
     <script src="jquery-1.4.4.min.js" type="text/javascript"></script>
-       <script type="text/javascript">
+
+    <script type="text/javascript">
         $(function() {
             $("h1").slideToggle("slow");
             $("#div_big").attr("style", "border:solid 1px black;width:1024px;");
             $("h1").append("<p style='display:none;'>你好啊，某某某！</p>");
             $("#div_big").click(function() {
-                $("p").show("slow");
             });
         });
         function hidTopic() {
             $("#posi_1").show("slow");
             var top = $("#mark_1").offset().top;
             var left = $("#mark_1").offset().left;
-            $("#posi_1").css({ 'top': top + 3, 'left': left - 5 });
-
+            $("#posi_1").css({ 'top': top + 3, 'left': left+2 });
         }
         function hidTail() {
-            //var obj = $("#ifr_1").contents().find("iframe");
-            //alert(obj);
-            var obj = $(window.frames["ifr_1"].document).find("iframe").html()
-            alert(obj);
+            $("#posi_1").hide("slow");
+			$("#div_2").hide("slow");
         }
         function showIframe() {
             $("#div_2").show("slow");
             hidTopic();
         }
-
-        function loadHeight(item) {
-            var bHeight = item.contentWindow.document.body.scrollHeight;
-            alert(bHeight);
-            var dHeight = item.contentWindow.document.documentElement.scrollHeight;
-            alert(dHeight);
-            var height = Math.max(bHeight, dHeight);
-            alert(height);
-            item.height = height;
-        }
     </script>
+
 </head>
 <body>
     <center>
         <h1 style="display: none;">
-            哈喽！欢迎来访..</h1>
+            <a onclick="showIframe()" href="#" style="font-size: 12px;" title="把你一天的心情告诉大家吧！至少会有一个人看到的^.^">留言</a> <a onclick="hidTail()"
+                href="#" style="font-size: 12px;" title="只是隐藏">隐藏</a> 哈喽！欢迎来访..</h1>
         <div id="div_big">
             <div id="mark_1">
             </div>
-            <div id="div_2" style="display: ;">
-                 <span style="font-size:10px;">*请留下你的真名真姓，留言的条数有限，谢谢合作。违者丶拖出去···你懂的！丶。</span>
+            <div id="div_2" style="display:none;">
                 <iframe id="ifr_1" src="http://desting1314.shoutmix.net" style="width: 100%;"
                     frameborder="0" scrolling="no" height="1000px"></iframe>
             </div>
         </div>
+		<div>
+		<div style="font-size:12px;">
+		搜集内容中！<a href="http://user.qzone.qq.com/653693115/infocenter" title="勇敢的点击吧！嘿嘿~"> &nbsp;--›我有内容推荐</a>
+		</div>
+		
+		</div>
     </center>
-    <div id="posi_1" style="position: absolute; width: 1020px; height: 40px; background-color: Blue;
+    <div id="posi_1" style="position: absolute; width: 1020px; height:165px; background-color: #CCCCCC;
         display: none;">
         <p>
-            <b></b>
+            <b style="color:#F6F6F6;">*把留言时间减掉4小时才是现在的时间哦！</b><b style="color:#CCCCCC;">*还在完善中...</b>
         </p>
+		<div style="vertical-align:bottom; margin-top:125px; color:#FFFFCC;" align="center">*请写真名真姓，违者拖出去砍头！</div>
     </div>
 </body>
 </html>
