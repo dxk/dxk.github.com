@@ -9,7 +9,9 @@
             $("h1").slideToggle("slow");
             $("#div_big").attr("style", "border:solid 1px black;width:1024px;");
             $("h1").append("<p style='display:none;'>你好啊，某某某！</p>");
-            $("#div_big").click(function() {
+            $("#posi_1").click(function() {
+                 $("#mess_").show("slow").fadeIn(2000);
+                 $("#mess_").fadeOut(2000);
             });
         });
         function hidTopic() {
@@ -55,5 +57,8 @@
         </p>
 		<div style="vertical-align:bottom; margin-top:105px; color:#FFFFCC;" align="center">*请写真名真姓，违者拖出去砍头！</div>
     </div>
+   <div id="mess_" style="display:none; position:absolute; width:100px; height:20px; background-color:#75C55D;" align="center" >
+      *你是我的眼
+   </div>
 </body>
 </html>
