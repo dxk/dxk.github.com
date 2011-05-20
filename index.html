@@ -1,7 +1,8 @@
-<html>
+﻿<html>
 <head>
     <title>天天留言吧，一天一更新！</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
     <script src="jquery-1.4.4.min.js" type="text/javascript"></script>
 
     <script type="text/javascript">
@@ -9,9 +10,10 @@
             $("h1").slideToggle("slow");
             $("#div_big").attr("style", "border:solid 1px black;width:1024px;");
             $("h1").append("<p style='display:none;'>你好啊，某某某！</p>");
-            $("#posi_1").click(function() {
-                 $("#mess_").show("slow").fadeIn(2000);
-                 $("#mess_").fadeOut(2000);
+            $("#posi_1").click(function(ev) {
+                $("#mess_").css("top", ev.clientY + document.body.scrollTop - document.body.clientTop).css("left", ev.clientX + document.body.scrollLeft - document.body.clientLeft);
+                $("#mess_").show("slow").fadeIn(1000);
+                $("#mess_").fadeOut(100);
             });
         });
         function hidTopic() {
@@ -22,7 +24,7 @@
         }
         function hidTail() {
             $("#posi_1").hide("slow");
-			$("#div_2").hide("slow");
+            $("#div_2").hide("slow");
         }
         function showIframe() {
             $("#div_2").show("slow");
@@ -34,31 +36,34 @@
 <body>
     <center>
         <h1 style="display: none;">
-            <a onclick="showIframe()" href="#" style="font-size: 12px;" title="把你一天的心情告诉大家吧！至少会有一个人看到的^.^">留言</a> <a onclick="hidTail()" href="#" style="font-size: 12px;" title="只是隐藏">隐藏</a> 哈喽！欢迎来访..</h1>
+            <a onclick="showIframe()" href="#" style="font-size: 12px;" title="把你一天的心情告诉大家吧！至少会有一个人看到的^.^">
+                留言</a> <a onclick="hidTail()" href="#" style="font-size: 12px;" title="只是隐藏">隐藏</a>
+            哈喽！欢迎来访..</h1>
         <div id="div_big">
             <div id="mark_1">
             </div>
-            <div id="div_2" style="display:none;">
-                <iframe id="ifr_1" src="http://desting1314.shoutmix.net" style="width: 100%;"
-                    frameborder="0" scrolling="no" height="1000px"></iframe>
+            <div id="div_2" style="display: none;">
+                <iframe id="ifr_1" src="http://desting1314.shoutmix.net" style="width: 100%;" frameborder="0"
+                    scrolling="no" height="1000px"></iframe>
             </div>
         </div>
-	<div>
-	    <div style="font-size:12px;">
-		搜集内容中！<a href="http://user.qzone.qq.com/653693115/infocenter" title="勇敢的点击吧！嘿嘿~"> &nbsp;--›我有内容推荐</a>
-	    </div>
-		
-	</div>
+        <div>
+            <div style="font-size: 12px;">
+                搜集内容中！<a href="http://user.qzone.qq.com/653693115/infocenter" title="勇敢的点击吧！嘿嘿~"> &nbsp;--›我有内容推荐</a>
+            </div>
+        </div>
     </center>
-    <div id="posi_1" style="position: absolute; width: 1020px; height:165px; background-color: #CCCCCC;
+    <div id="posi_1" style="position: absolute; width: 1020px; height: 165px; background-color: #CCCCCC;
         display: none;">
         <p>
-            <b style="color:#F6F6F6;">*把留言时间减掉4小时才是现在的时间哦！</b><b style="color:#CCCCCC;">*还在完善中...</b>
+            <b style="color: #F6F6F6;">*把留言时间减掉4小时才是现在的时间哦！</b><b style="color: #CCCCCC;">*还在完善中...</b>
         </p>
-		<div style="vertical-align:bottom; margin-top:105px; color:#FFFFCC;" align="center">*请写真名真姓，违者拖出去砍头！</div>
+        <div style="vertical-align: bottom; margin-top: 105px; color: #FFFFCC;" align="center">
+            *请写真名真姓，违者拖出去砍头！</div>
     </div>
-   <div id="mess_" style="display:none; position:absolute; width:100px; height:20px; left: 475px; top: 186px; background-color:#75C55D;" align="center" >
-      *你是我的眼
-   </div>
+    <div id="mess_" style="display: none; position: absolute; width: 100px; height: 20px;
+        left: 475px; top: 186px; background-color: #75C55D;" align="center">
+        *你是我的眼
+    </div>
 </body>
 </html>
