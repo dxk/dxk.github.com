@@ -19,13 +19,13 @@
             });
             bofang();
             $("#checkImg").click(function () {
-                if (ifContinu) {
-                    onMousOv();
-                    $("#stopormove").val("停");
-                } else {
-                    onMousOu();
-                    $("#stopormove").val("动");
-                }
+                //if (ifContinu) {
+                //    onMousOv();
+                //    $("#stopormove").val("停");
+                //} else {
+                //    onMousOu();
+                //    $("#stopormove").val("动");
+                //}
             });
         });
 
@@ -35,7 +35,7 @@
                 $("._" + k).hide();
                 $("._" + i).fadeIn("slow");
                 i++;
-                if (i > imgCount) {
+                if (i > imgCount-3) {
                     i = 1;
                     $("#LiuYan").show("slow").fadeIn(1000);
                 } else if (i - 1 == 1) {
@@ -123,27 +123,16 @@
                     <img src="5.jpg" alt="" class="_5" width="697" height="544" style="display: none;" />
                     <img src="6.jpg" alt="" class="_6" width="697" height="544" style="display: none;" />
                     <input type="button" id="stopormove" style="width: 20px; height: 20px; border: 0px;
-                        margin: 1px;" />
+                        margin: 1px; display: none;" />
                 </div>
             </div>
         </center>
-        <div id="posi_1" style="position: absolute; width: 1020px; height: 165px; background-color: #CCCCCC;
-            display: none;">
-            <p>
-                <b style="color: #F6F6F6;">*你的心，燃烧过么..  总之那几年，你们没有缘..！</b><b style="color: #CCCCCC;">*还在完善中...</b>
-            </p>
-            <div style="vertical-align: bottom; margin-top: 105px; color: #FFFFCC;" align="center">
-                *请写真名灬昵称！</div>
-        </div>
-        <div id="mess_" style="display: none; position: absolute; width: 100px; height: 20px;
-            left: 475px; top: 186px; background-color: #75C55D;" align="center">
-            *谁是谁的眼
-        </div>
     </div>
     <div class="part2" style="display: none;">
         <center>
             <br />
             <b>你是否依然相信童话..</b>
+            </br><a href="#" onclick="writeS()" title="返回">-back-</a>
             <div style="width: 500px; border: 1 solid red;">
                 <br />
                 病了，一个人‘扛’、<br />
