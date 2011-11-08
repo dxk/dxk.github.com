@@ -35,9 +35,11 @@
                 $("._" + k).hide();
                 $("._" + i).fadeIn("slow");
                 i++;
-                if (i > imgCount-3) {
-                    i = 1;
+                if (i > 3) {
                     $("#LiuYan").show("slow").fadeIn(1000);
+                }
+                if (i > imgCount) {
+                    i = 1;
                 } else if (i - 1 == 1) {
                     $("._" + imgCount).hide();
                 }
@@ -63,13 +65,13 @@
             $("#posi_1").hide("slow");
             $("#div_2").hide("slow");
             $("#checkImg").show("1000");
-            onMousOu();
+            //onMousOu();
         }
         function showIframe() {
             $("#div_2").show("slow");
             hidTopic();
             $("#checkImg").hide("1000");
-            onMousOv();
+            //onMousOv();
         }
 
         function animdiv(obj) {
@@ -102,7 +104,7 @@
             <h1 style="display: none;">
                 <a onclick="showIframe()" id="LiuYan" href="#" style="font-size: 12px; display: none;"
                     title="..朋友言..">留言</a> <a onclick="hidTail()" href="#" style="font-size: 12px;"
-                        title="只是隐藏">隐藏</a> 宁愿吃骨头也不吃泡面..</h1>
+                        title="收起留言版">隐藏</a> 宁愿吃骨头也不吃泡面..</h1>
             <div id="div_big">
                 <div id="mark_1">
                 </div>
