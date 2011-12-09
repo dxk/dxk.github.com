@@ -1,0 +1,256 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+    <title>雪花</title>
+    <meta name="description" content="123" />
+    <script type="text/javascript" src="baidu.js"></script>
+    <script type="text/javascript" src="baiduKnow.js"></script>
+    <style type="text/css">
+        .logo img
+        {
+            visibility: hidden;
+        }
+        .tip-holder
+        {
+            background: none;
+        }
+        .tip-body
+        {
+            background: url(http://img.baidu.com/img/iknow/tip_bg.gif) no-repeat scroll left bottom transparent;
+        }
+        .tip-right-arrow
+        {
+            background: url(http://img.baidu.com/img/iknow/tip_bg.gif) no-repeat scroll right top transparent;
+        }
+        .tip-left-arrow
+        {
+            background: url(http://img.baidu.com/img/iknow/tip_bg.gif) no-repeat top left transparent;
+        }
+        .snow
+        {
+            font-family: verdana;
+            color: white;
+            position: absolute;
+            vertical-align: baseline;
+            padding: 0;
+            margin: 0;
+        }
+        .container
+        {
+            padding: 0;
+            margin: 0;
+            position: absolute;
+            left: 0;
+            top: -12px;
+            width: 0;
+            height: 0;
+            overflow: visible;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        .snow-cover
+        {
+            position: absolute;
+            background: url(http://img.baidu.com/img/iknow/home/snow.png) no-repeat left top;
+            width: 996px;
+            height: 24px;
+            top: -7px;
+            left: -5px;
+            filter: alpha(opacity=0);
+            opacity: 0;
+            font-size:30px;
+        }
+        .container ::selection
+        {
+            background-color: transparent;
+        }
+        html, body
+        {
+            background: url(7.jpg) repeat-x left top !important;
+        }
+    </style>
+</head>
+<body>
+    <div style="position: absolute; left: -100px; top: -100px;">
+        <embed style="width: 1px; height: 1px;" src="11.mp3" width="32" height="32"></embed>
+    </div>
+    <center><div style=" font-size:30px;">冬天咯...</div></center>
+    <div id="wrap">
+        <div id="page" class="w984">
+            <div id="header">
+                <div id="menu" class="menu " style="position: relative;">
+                    <div class="snow-cover" style="opacity: 0;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        (function () {
+            var V = 1;// 984;
+            var H, N;
+            var W = [];
+            var L;
+            var P;
+            var G = 5;
+            var R = 10;
+            var Q, M;
+            var E;
+            var J = false;
+            var I = false;
+            var O = false;
+            var B = 0;
+            var S = 0;
+            var F = [];
+            for (var U = 0; U < 4; U++) {
+                F.push(512 + Math.random() * 3)
+            }
+            function K(X, Y) {
+                this.dom = document.createElement("div");
+                this.dom.innerHTML = "*";
+                this.frameIndex = 0;
+                this.x = Math.random() * (Y - R * 2) + R / 2;
+                this.y = 0;
+                this.zoom = X;
+                this.xSpeed = 3;
+                this.ySpeed = this.zoom * 5 + 1;
+                this.dom.className = "snow";
+                this.dom.style.fontSize = this.zoom * 4 + 12 + "px";
+                this.frames = [{ x: this.x, y: this.y}]
+            }
+            K.prototype.draw = function () {
+                var Y = this.frames[this.frameIndex++];
+                if (!Y) {
+                    if (this.frames[this.frameIndex - 2].remove) {
+                        P.removeChild(this.dom)
+                    }
+                    return false
+                }
+                var X = this.dom.style;
+                X.left = Y.x + "px";
+                X.top = Y.y + "px";
+                return true
+            };
+            K.prototype.update = function () {
+                this.x += this.xSpeed * Math.random();
+                this.y += this.ySpeed;
+                if (this.x > L - R) {
+                    this.x = R
+                } else {
+                    if (this.x < R) {
+                        this.x = L - R
+                    }
+                }
+                var X = { x: this.x, y: this.y };
+                return X
+            };
+            K.prototype.calculate = function () {
+                while (this.y < F[parseInt(this.x) % 4]) {
+                    this.frames.push(this.update())
+                }
+                if (this.x < Q || this.x > M) {
+                    for (var Y = 0, X = 80 / this.ySpeed; Y < X; Y++) {
+                        this.frames.push(this.update())
+                    }
+                    var Z = this.update();
+                    Z.remove = true; this.frames.push(Z)
+                } else {
+                    if (J) {
+                        this.frames.push({ x: this.x, y: this.y, remove: true })
+                    }
+                }
+            };
+            function C(X) {
+                var Z = [];
+                for (var Y = 0; Y < G; Y++) {
+                    var a = new K(Math.random(), L);
+                    X.appendChild(a.dom);
+                    a.calculate();
+                    Z.push(a)
+                }
+                return Z
+            }
+            function D() { G = 0 }
+            function A() { G = 5 }
+            function T() {
+                E = baidu.dom.create("div", { className: "snow-cover-delete" });
+                baidu.g("menu").appendChild(E); baidu.setStyle(baidu.g("menu"), "position", "relative");
+                P = document.createElement("div");
+                P.className = "container";
+                document.body.appendChild(P);
+                if (baidu.browser.ie) {
+                    document.execCommand("BackgroundImageCache", false, true);
+                    baidu.setStyle(baidu.g("menu"), "zoom", "1");
+                    P.onselectstart = function () { return false };
+                    document.onfocusout = D;
+                    document.onfocusin = A
+                } else {
+                    window.onblur = D;
+                    window.onfocus = A
+                }
+                L = baidu.page.getWidth();
+                Q = baidu.g("menu").offsetLeft - 5;
+                M = V + Q;
+                N = setInterval(function () {
+                    if (I) {
+                        return
+                    }
+                    var X = document.createDocumentFragment();
+                    W = W.concat(C(X));
+                    P.appendChild(X);
+                    S += G;
+                    if (S > 0) {
+                        if (S === 180 * G) {
+                            J = true;
+                            for (var Y = 0; Y < 4; Y++) {
+                                F[Y] -= 3
+                            }
+                            S = -10
+                        } else {
+                            if (S > 50 * G) {
+                                B += 0.01 * G / 5;
+                                baidu.dom.setStyle(E, "opacity", B)
+                            }
+                        }
+                    }
+                }, 300);
+                H = setInterval(function () {
+                    if (I) {
+                        return
+                    }
+                    for (var X = 0; X < W.length; X++) {
+                        if (!W[X].draw()) {
+                            W.splice(X, 1)
+                        }
+                    }
+                }, 60)
+            }
+            window.onresize = function () {
+                I = true;
+                if (J) {
+                    for (var X = 0; X < 4; X++) {
+                        F[X] += 3
+                    }
+                }
+                J = false;
+                S = 0;
+                B = 0;
+                W.length = 0;
+                P.innerHTML = "";
+                baidu.dom.setStyle(E, "opacity", 0);
+                setTimeout(function () {
+                    L = baidu.page.getWidth();
+                    Q = baidu.g("menu").offsetLeft - 5;
+                    M = V + Q;
+                    I = false
+                }, 500)
+            };
+            T()
+        })();
+    </script>
+    <div class="container">
+    </div>
+</body>
+</html>
