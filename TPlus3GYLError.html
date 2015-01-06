@@ -14,13 +14,7 @@
 	调查：
 </p>
 <p>
-	&nbsp; &nbsp; 跟踪发现在为该表dispatchlist插入某条记录时，结转结束；分析这条插入记录发现<span style="line-height:1.5;">表</span> 
-</p>
-<p>
-	<span style="line-height:1.5;">dispatchlist的cMome字段长度为60，而插入的记录长度达到了87个字符，数据库报错</span> 
-</p>
-<p>
-	”将截断字符串或二进制数据！“。
+	&nbsp; &nbsp; 跟踪发现在为该表dispatchlist插入某条记录时，结转结束；分析这条插入记录发现<span style="line-height:1.5;">表</span><span style="line-height:1.5;">dispatchlist的cMome字段长度为60，而插入的记录长度达到了87个字符，数据库报错</span><span style="line-height:1.5;">”将截断字符串或二进制数据！“。</span>
 </p>
 <p>
 	<br />
@@ -31,37 +25,22 @@
 <p>
 	&nbsp; &nbsp; 执行以下SQL语句
 </p>
-<div style="background-color: beige;">
-<p>
-	&nbsp; &nbsp;&nbsp;alter table UFDATA_007_2015.dbo.DispatchList&nbsp;
-</p>
-<p>
-	<span style="line-height:1.5;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="line-height:1.5;">alter column [cMemo] [varchar] (600) COLLATE Chinese_PRC_CI_AS NULL;</span> 
-</p>
-<p>
-	&nbsp;&nbsp;&nbsp;&nbsp;alter table UFDATA_007_2015.dbo.DispatchLists&nbsp;
-</p>
-<p>
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;alter column [cMemo] [varchar] (600) COLLATE Chinese_PRC_CI_AS NULL;
-</p>
-<p>
-	&nbsp;&nbsp;&nbsp;&nbsp;alter table UFDATA_007_2015.dbo.ScrapVouch&nbsp;
-</p>
-<p>
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;alter column [cMemo] [varchar] (300) COLLATE Chinese_PRC_CI_AS NULL;
-</p>
-<p>
-	&nbsp;&nbsp;&nbsp;&nbsp;alter table UFDATA_007_2015.dbo.SO_SOMain&nbsp;
-</p>
-<p>
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;alter column [cMemo] [varchar] (600) COLLATE Chinese_PRC_CI_AS NULL;
-</p>
+<div style="background-color:beige;">
+	<p>
+		&nbsp; &nbsp;&nbsp;alter table UFDATA_007_2015.dbo.DispatchList <span style="line-height:1.5;">alter column [cMemo] [varchar] (600) COLLATE Chinese_PRC_CI_AS NULL;</span>
+	</p>
+	<p>
+		&nbsp;&nbsp;&nbsp;&nbsp;alter table UFDATA_007_2015.dbo.DispatchLists&nbsp;<span style="line-height:1.5;">alter column [cMemo] [varchar] (600) COLLATE Chinese_PRC_CI_AS NULL;</span>
+	</p>
+	<p>
+		&nbsp;&nbsp;&nbsp;&nbsp;alter table UFDATA_007_2015.dbo.ScrapVouch&nbsp;<span style="line-height:1.5;">alter column [cMemo] [varchar] (300) COLLATE Chinese_PRC_CI_AS NULL;</span>
+	</p>
+	<p>
+		&nbsp;&nbsp;&nbsp;&nbsp;alter table UFDATA_007_2015.dbo.SO_SOMain&nbsp;<span style="line-height:1.5;">alter column [cMemo] [varchar] (600) COLLATE Chinese_PRC_CI_AS NULL;</span>
+	</p>
 </div>
 <p>
-	&nbsp; &nbsp; 将表<span>DispatchList 、<span>DispatchLists&nbsp;</span>、<span>ScrapVouch&nbsp;</span>、<span><span>SO_SOMain&nbsp;</span></span>的备注字段均不同程度</span> 
-</p>
-<p>
-	<span>的放大即可。</span> 
+	&nbsp; &nbsp; 将表<span>DispatchList 、<span>DispatchLists&nbsp;</span>、<span>ScrapVouch&nbsp;</span>、<span><span>SO_SOMain&nbsp;</span></span>的备注字段均不同程度</span><span style="line-height:1.5;">的放大即可。</span>
 </p>
 </div>
 </body>
