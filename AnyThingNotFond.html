@@ -1,0 +1,142 @@
+<html>
+<head>
+<title>T3供应链结转失败2</title>
+</head>
+<body>
+<div style="font-size: 20px;">
+    <p>
+	<strong>T3供应链结转失败原因分析2</strong> 
+</p>
+<p>
+	<br />
+</p>
+<p>
+	<span style="color:#E53333;">采购发票报</span><span style="color:#E53333;">错：未找到cVenDefine1字段</span> 
+</p>
+<p>
+	<br />
+调查发现 ppurBillhead 视图中未存在 名称为 cVenDefine1 的字段，对比他年帐套发现查询结果列中<br />
+有Vendor.cVenDefine1,Vendor.cVenDefine2,Vendor.cVenDefine3。<br />
+<br />
+执行：
+</p>
+<div style="background-color:beige;margin-left:20px;">
+	SET QUOTED_IDENTIFIER OFF&nbsp;<br />
+GO<br />
+SET ANSI_NULLS ON&nbsp;<br />
+GO<br />
+ALTER &nbsp; &nbsp;VIEW ppurBillhead AS&nbsp;<br />
+&nbsp; &nbsp; &nbsp; &nbsp;SELECT PurBillVouch.PBVID, PurBillVouch.cPBVBillType, PurBillVouch.cPBVCode, PurBillVouch.cPTCode, PurchaseType.cPTName, PurBillVouch.dPBVDate, PurBillVouch.cVenCode, Vendor.cVenAbbName, PurBillVouch.cUnitCode, Vendor1.cVenAbbName AS cVenAbbName_1, Vendor.cVenDefine1,Vendor.cVenDefine2,Vendor.cVenDefine3, PurBillVouch.cDepCode, Department.cDepName, PurBillVouch.cPersonCode, Person.cPersonName, PurBillVouch.cPayCode, PayCondition.cPayName, PurBillVouch.cexch_name, foreigncurrency.cexch_code, PurBillVouch.cExchRate, PurBillVouch.iPBVTaxRate, PurBillVouch.cPBVMemo, PurBillVouch.cOrderCode, PurBillVouch.cInCode, PurBillVouch.cBusType, PurBillVouch.dSDate, PurBillVouch.cPBVMaker, PurBillVouch.cPBVVerifier, PurBillVouch.bNegative, PurBillVouch.bOriginal, PurBillVouch.bFirst, PurBillVouch.cDefine1, PurBillVouch.cDefine2, PurBillVouch.cDefine3, PurBillVouch.cDefine4, PurBillVouch.cDefine5, PurBillVouch.cDefine6, PurBillVouch.cDefine7, PurBillVouch.cDefine8, PurBillVouch.cDefine9, PurBillVouch.cDefine10, PurBillVouch.bPayment,PurBillVouch.dVerifyDate&nbsp;<br />
+&nbsp; &nbsp; &nbsp; &nbsp;FROM ((((((PurBillVouch LEFT JOIN Department ON PurBillVouch.cDepCode = Department.cDepCode) LEFT JOIN foreigncurrency ON PurBillVouch.cexch_name = foreigncurrency.cexch_name) LEFT JOIN PayCondition ON PurBillVouch.cPayCode = PayCondition.cPayCode) LEFT JOIN Person ON PurBillVouch.cPersonCode = Person.cPersonCode) LEFT JOIN PurchaseType ON PurBillVouch.cPTCode = PurchaseType.cPTCode) LEFT JOIN Vendor ON PurBillVouch.cUnitCode = Vendor.cVenCode) LEFT JOIN Vendor AS Vendor1 ON PurBillVouch.cVenCode = Vendor1.cVenCode&nbsp;<br />
+&nbsp; &nbsp; &nbsp; &nbsp;WHERE (PurBillVouch.cPBVBillType IN ('02','04','05','06'))&nbsp;<br />
+--AND (PurBillVouch.cBusType In ('普通采购','受托代销'))<br />
+GO<br />
+SET QUOTED_IDENTIFIER OFF&nbsp;<br />
+GO<br />
+SET ANSI_NULLS ON&nbsp;<br />
+GO
+</div>
+<p>
+	<br />
+</p>
+<h3>
+	<strong><span style="color:#009900;">提升</span></strong> 
+</h3>
+<p>
+	<span style="color:#E53333;">形如提示：未找到XXX字段的错误</span><br />
+<br />
+跟踪SQL找到查询的视图/表<br />
+<br />
+看该视图/表中是否存在这个XXX字段<br />
+<br />
+若没有：<br />
+1，先到先前帐套中查看该视图/表,若存在则把字段COPY过来<br />
+2，在该视图/表中增加该字段
+</p>
+<p>
+	<br />
+</p>
+<p>
+	例如：
+</p>
+<div style="border:1px solid #A33;margin-left:20px;">
+	<p>
+		<br />
+	</p>
+	<p>
+		<br />
+	</p>
+	<p>
+		销售出库单生成/审核报错：<br />
+<br />
+先发现该视图没有cShipAddress等字段，修改正确的视图为：
+	</p>
+	<p>
+		<br />
+	</p>
+	<div style="background-color:beige;">
+		SET QUOTED_IDENTIFIER OFF&nbsp;<br />
+GO<br />
+SET ANSI_NULLS ON&nbsp;<br />
+GO<br />
+ALTER &nbsp;View KCSaleOutH &nbsp; AS<br />
+&nbsp; &nbsp; &nbsp;SELECT RdRecord.ID, RdRecord.bRdFlag, RdRecord.cVouchType, VouchType.cVouchName, RdRecord.cBusType, RdRecord.cBusCode,&nbsp;<br />
+&nbsp; &nbsp; &nbsp;RdRecord.cSource, RdRecord.cWhCode, Warehouse.cWhName, RdRecord.dDate, RdRecord.cCode, RdRecord.cRdCode,&nbsp;<br />
+&nbsp; &nbsp; &nbsp;Rd_Style.cRdName, RdRecord.cDepCode, Department.cDepName, RdRecord.cPersonCode, Person.cPersonName,&nbsp;<br />
+&nbsp; &nbsp; &nbsp;RdRecord.cSTCode, SaleType.cSTName, RdRecord.cCusCode, Customer.cCusAbbName, RdRecord.cVenCode,&nbsp;<br />
+&nbsp; &nbsp; &nbsp;RdRecord.cOrderCode, RdRecord.cBillCode, RdRecord.cDLCode, RdRecord.cMemo, RdRecord.cMaker,&nbsp;<br />
+&nbsp; &nbsp; &nbsp;RdRecord.cAccounter, Vendor.cVenAbbName, RdRecord.cHandler, RdRecord.cDefine1, RdRecord.cDefine2,&nbsp;<br />
+&nbsp; &nbsp; &nbsp;RdRecord.cDefine3, RdRecord.cDefine4, RdRecord.cDefine5, RdRecord.cDefine6, RdRecord.cDefine7,&nbsp;<br />
+&nbsp; &nbsp; &nbsp;RdRecord.cDefine8, RdRecord.cDefine9, RdRecord.cDefine10,RdRecord.dVeriDate ,<br />
+&nbsp; &nbsp; &nbsp;RdRecord.cShipAddress,RdRecord.cSCCode,ShippingChoice.cSCName &nbsp; &nbsp; &nbsp;<br />
+&nbsp; &nbsp; &nbsp;FROM (((((((RdRecord LEFT JOIN Customer ON RdRecord.cCusCode = Customer.cCusCode)&nbsp;<br />
+&nbsp; &nbsp; &nbsp;LEFT JOIN Department ON RdRecord.cDepCode = Department.cDepCode)&nbsp;<br />
+&nbsp; &nbsp; &nbsp;LEFT JOIN Rd_Style ON RdRecord.cRdCode = Rd_Style.cRdCode)&nbsp;<br />
+&nbsp; &nbsp; &nbsp;LEFT JOIN SaleType ON RdRecord.cSTCode = SaleType.cSTCode)&nbsp;<br />
+&nbsp; &nbsp; &nbsp;LEFT JOIN Vendor ON RdRecord.cVenCode = Vendor.cVenCode)&nbsp;<br />
+&nbsp; &nbsp; &nbsp;LEFT JOIN VouchType ON RdRecord.cVouchType = VouchType.cVouchType)&nbsp;<br />
+&nbsp; &nbsp; &nbsp;LEFT JOIN Warehouse ON RdRecord.cWhCode = Warehouse.cWhCode)&nbsp;<br />
+&nbsp; &nbsp; &nbsp;LEFT JOIN Person ON RdRecord.cPersonCode = Person.cPersonCode&nbsp;<br />
+&nbsp; &nbsp; &nbsp;left join ShippingChoice on RdRecord.cSCCode = ShippingChoice.cSCCode &nbsp;<br />
+&nbsp; &nbsp; &nbsp;WHERE RdRecord.cVouchType='32' or RdRecord.cVouchType='34'&nbsp;<br />
+GO<br />
+SET QUOTED_IDENTIFIER OFF&nbsp;<br />
+GO<br />
+SET ANSI_NULLS ON&nbsp;<br />
+GO<br />
+	</div>
+<br />
+后发现，RDrecord 表中不存在[cSCCode] ，[cShipAddress] 字段，为该表增加这两个字段：<br />
+<br />
+	<div style="background-color:beige;">
+		alter table UFDATA_007_2015..RdRecord add [cSCCode] [varchar] (500) COLLATE Chinese_PRC_CI_AS NULL&nbsp;<br />
+alter table UFDATA_007_2015..RdRecord add [cShipAddress] [varchar] (500) COLLATE Chinese_PRC_CI_AS NULL&nbsp;
+		<p>
+			<br />
+		</p>
+	</div>
+	<p>
+		<br />
+	</p>
+</div>
+<p>
+	<br />
+</p>
+<p>
+	<br />
+</p>
+<p>
+	<br />
+</p>
+<p>
+	<br />
+</p>
+<p>
+	<br />
+</p>
+<p>
+	<br />
+</p>
+</div>
+</body>
+</html>
